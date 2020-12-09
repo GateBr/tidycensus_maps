@@ -1,0 +1,29 @@
+#This example uses Walton County, Fl
+
+householdincome=get_acs(year=2018, survey = 'acs5', geography='tract', state='FL', county='Walton',
+                        variables='B19013_001', geometry = TRUE)
+
+
+hhincome = ggplot(data=householdincome) +
+  aes(x= estimate, y= NAME) + 
+  geom_point() +
+  labs(title='Walton County Median Household Income',
+       x='Median Household Income',
+       caption='Source: US Census Bureau 2013-2018 American Community Survey')+
+ theme_bw()
+
+hhincome
+
+map = ggplot(data=householdincome) +
+  geom_sf(fill=NA) +
+  theme_void()
+
+map
+
+ggplot(data=householdincome) +
+  geom_sf() +
+  aes(fill=estimate) +
+  scale_fill_viridis_c(direction = -1) +
+  theme_void() +
+  labs(title='Median Household Income Walton County, Fl',
+       caption='Source: US Census Bureau 2013-2018 American Community Survey')
